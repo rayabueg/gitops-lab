@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sdp-lab-root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # TODO: replace with your GitHub repo URL, e.g.
+    # https://github.com/<you>/sdp-lab-gitops.git
+    repoURL: https://github.com/<you>/<repo>.git
+    targetRevision: main
+    path: clusters/sdp-lab
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
