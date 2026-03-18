@@ -8,7 +8,7 @@ spec:
   source:
     # TODO: replace with your GitHub repo URL, e.g.
     # https://github.com/<you>/sdp-lab-gitops.git
-    repoURL: https://github.com/<you>/<repo>.git
+    repoURL: https://github.com/rayabueg/gitops-lab.git
     targetRevision: main
     path: clusters/sdp-lab
   destination:

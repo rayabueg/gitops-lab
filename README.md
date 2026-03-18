@@ -6,21 +6,21 @@ This folder is intended to be pushed to a **separate GitHub repo** and then used
 
 Create a new GitHub repo (public is simplest for a lab) and note its URL, e.g.
 
-- `https://github.com/<you>/sdp-lab-gitops.git`
+- `https://github.com/rayabueg/gitops-lab.git`
 
 ## 2) Initialize + push this folder
 
 From the workspace root:
 
 ```bash
-cd gitops
+cd gitops-lab
 
 git init
 git add .
 git commit -m "initial gitops skeleton"
 git branch -M main
 
-git remote add origin https://github.com/<you>/<repo>.git
+git remote add origin https://github.com/rayabueg/gitops-lab.git
 git push -u origin main
 ```
 
