@@ -6,12 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://docker.io/envoyproxy
-    chart: gateway-helm
-    targetRevision: v1.7.1
-    helm:
-      releaseName: envoy-gateway
-      skipCrds: true
+    repoURL: https://github.com/rayabueg/gitops-lab.git
+    targetRevision: main
+    path: clusters/sdp-lab/addons/envoy-gateway
   destination:
     server: https://kubernetes.default.svc
     namespace: envoy-gateway-system
