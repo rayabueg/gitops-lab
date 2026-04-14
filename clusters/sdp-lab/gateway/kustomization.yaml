@@ -7,4 +7,6 @@ commonAnnotations:
 resources:
   - eg-envoyproxy.yaml
   - eg-gateway.yaml
+  - demo-backend.yaml
+  - demo-httproute.yaml
 
