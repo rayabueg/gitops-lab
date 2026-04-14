@@ -5,12 +5,17 @@ metadata:
   namespace: envoy-gateway-system
 spec:
   parentRefs:
-    - name: eg
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: eg
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: demo-echo
+        - group: ""
+          kind: Service
+          name: demo-echo
           port: 3000
+          weight: 1
