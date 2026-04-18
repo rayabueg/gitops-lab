@@ -30,7 +30,7 @@ spec:
 
         policy: sync
         registry: txt
-        txtOwnerId: sdp-lab
+        txtOwnerId: k8s-lab
 
         sources:
           - service

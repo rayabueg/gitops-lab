@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/rayabueg/gitops-lab.git
     targetRevision: main
-    path: clusters/sdp-lab/addons/envoy-gateway
+    path: clusters/k8s-lab/addons/envoy-gateway
   destination:
     server: https://kubernetes.default.svc
     namespace: envoy-gateway-system

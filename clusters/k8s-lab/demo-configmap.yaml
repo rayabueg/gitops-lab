@@ -5,4 +5,4 @@ metadata:
   namespace: demo
 data:
   message: "hello from gitops"
-  cluster: "sdp-lab"
+  cluster: "k8s-lab"

@@ -33,7 +33,7 @@ Edit `bootstrap/argocd/root-app.yaml` and set `spec.source.repoURL` to your repo
 Then apply it to the cluster:
 
 ```bash
-export KUBECONFIG="$HOME/.kube/lima-sdp-lab"
+export KUBECONFIG="$HOME/.kube/lima-k8s-lab"
 
 kubectl apply -f bootstrap/argocd/root-app.yaml
 kubectl -n argocd get applications
@@ -49,7 +49,7 @@ kubectl -n demo get configmap gitops-smoke-test -o yaml
 
 ## Notes: CRDs first
 
-Some addons (like Envoy Gateway) rely on CRDs. This repo vendors those CRDs under `clusters/sdp-lab/crds/` and applies them first using an Argo CD sync wave.
+Some addons (like Envoy Gateway) rely on CRDs. This repo vendors those CRDs under `clusters/k8s-lab/crds/` and applies them first using an Argo CD sync wave.
 
 For Envoy Gateway, the Gateway API CRDs are pinned to a version compatible with the Envoy Gateway release (currently Gateway API v1.4.1 for Envoy Gateway v1.7.x), and the Envoy Gateway CRDs are pinned to the Envoy Gateway release version.
 
