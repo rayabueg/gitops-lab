@@ -30,6 +30,7 @@ spec:
         - /status
         - /metadata/annotations
         - /metadata/labels
+        - /spec
         - /spec/conversion
   syncPolicy:
     syncOptions:
