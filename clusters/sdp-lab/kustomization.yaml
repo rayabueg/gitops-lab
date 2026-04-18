@@ -6,6 +6,9 @@ resources:
   - namespaces.yaml
   - demo-configmap.yaml
   - addons/cert-manager/application.yaml
+  - cert-manager/clusterissuer-selfsigned.yaml
+  - addons/external-secrets/application.yaml
+  - addons/external-dns/application.yaml
   - addons/envoy-gateway/application.yaml
   - gateway
 

@@ -1,28 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: external-secrets
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-2"
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
-  ignoreDifferences:
-    - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jqPathExpressions:
-        - .spec.versions[].selectableFields
   source:
-    repoURL: https://charts.jetstack.io
-    chart: cert-manager
-    targetRevision: v1.20.0
+    repoURL: https://external-secrets.io
+    chart: external-secrets
+    targetRevision: 2.3.0
     helm:
-      releaseName: cert-manager
+      releaseName: external-secrets
       values: |
+        # External Secrets Operator (ESO)
+        # After install, define a SecretStore/ClusterSecretStore for your backend (AWS/GCP/Azure/Vault/etc)
+        # and then create ExternalSecret resources.
         installCRDs: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager
+    namespace: external-secrets
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
