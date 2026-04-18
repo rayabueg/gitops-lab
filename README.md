@@ -1,27 +1,29 @@
-# GitOps (Argo CD) repo skeleton
+# GitOps (Argo CD) repo
 
-This folder is intended to be pushed to a **separate GitHub repo** and then used as the source-of-truth for your Lima Kubernetes lab cluster.
+This repo is the **source-of-truth** for your lab cluster (Argo CD `Application`s, addons, gateway resources, etc.).
+
+Keep the **bootstrap** scripts (Lima VM + kubeadm + CNI + initial Argo CD install) in a separate repo (for example the `lima/` folder in this workspace).
 
 ## 1) Create a GitHub repo
 
 Create a new GitHub repo (public is simplest for a lab) and note its URL, e.g.
 
-- `https://github.com/rayabueg/gitops-lab.git`
+- `https://github.com/<you>/gitops-lab.git`
 
-## 2) Initialize + push this folder
+For sharing, the simplest flow is:
 
-From the workspace root:
+- You keep this repo as the “upstream”, and your colleague forks it, OR
+- You both work from a shared org repo.
+
+## 2) Fork / clone
+
+If you’re starting from this workspace, `gitops-lab/` is already a git repo.
+
+To clone:
 
 ```bash
+git clone https://github.com/<you>/gitops-lab.git
 cd gitops-lab
-
-git init
-git add .
-git commit -m "initial gitops skeleton"
-git branch -M main
-
-git remote add origin https://github.com/rayabueg/gitops-lab.git
-git push -u origin main
 ```
 
 ## 3) Point Argo CD at your repo
