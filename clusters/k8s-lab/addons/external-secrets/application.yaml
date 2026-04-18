@@ -21,6 +21,16 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: external-secrets
+  ignoreDifferences:
+    # CRDs often have benign drift due to defaulting and apiserver-managed fields.
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      name: externalsecrets.external-secrets.io
+      jsonPointers:
+        - /status
+        - /metadata/annotations
+        - /metadata/labels
+        - /spec/conversion
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
