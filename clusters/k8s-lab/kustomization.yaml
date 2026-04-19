@@ -9,6 +9,8 @@ resources:
   - cert-manager/clusterissuer-selfsigned.yaml
   - addons/external-secrets/application.yaml
   - addons/external-dns/application.yaml
+  - addons/core-dns/application.yaml
+  - addons/descheduler/application.yaml
   - addons/envoy-gateway/application.yaml
   - gateway
 
