@@ -53,3 +53,43 @@ Some addons (like Envoy Gateway) rely on CRDs. This repo vendors those CRDs unde
 
 For Envoy Gateway, the Gateway API CRDs are pinned to a version compatible with the Envoy Gateway release (currently Gateway API v1.4.1 for Envoy Gateway v1.7.x), and the Envoy Gateway CRDs are pinned to the Envoy Gateway release version.
 
+## Contributing
+
+Because this is a public repo, the default contribution flow is **fork → branch → PR**.
+If you have (or want) direct write access, ask the repo owner to add you as a collaborator; PRs are still preferred for review/history.
+
+### Workflow
+
+1) Create a branch
+
+```bash
+git switch -c <your-branch>
+```
+
+2) Make changes and validate manifests render
+
+```bash
+kustomize build clusters/k8s-lab >/tmp/k8s-lab-render.yaml
+```
+
+3) Commit with a scoped message
+
+- Format: `scope: summary`
+- Examples: `addons: add descheduler`, `k8s-lab: wire new Application`, `crds: bump gateway-api`
+
+4) Push and open a PR
+
+```bash
+git push -u origin <your-branch>
+```
+
+### Contributing when this repo is a submodule
+
+If you’re working from the parent `k8s-lab` repo, this folder is a **git submodule**.
+The correct sequence is:
+
+1) Commit + push changes here (`gitops-lab/`) first
+2) Then, in the parent repo, commit the updated submodule pointer (the `gitops-lab` gitlink)
+
+This keeps the parent repo pinned to a known-good GitOps revision.
+
