@@ -7,6 +7,13 @@ commonAnnotations:
 resources:
   - eg-envoyproxy.yaml
   - eg-gateway.yaml
+  # Simpler CDN-based React demo (no build step) — served at /ui
+  - demo-react-ui.yaml
+  # Echo backend wired to the catch-all route /
   - demo-backend.yaml
   - demo-httproute.yaml
+  # Whoami service — served at /hello
+  - demo-hello.yaml
+  # Vite + React UI (GHCR image) — served at /vite
+  - demo-vite-ui.yaml
 
