@@ -47,6 +47,13 @@ This repo includes a tiny smoke test `ConfigMap`.
 kubectl -n demo get configmap gitops-smoke-test -o yaml
 ```
 
+## Scope: infra and addons only
+
+This repo owns cluster infrastructure — namespaces, CRDs, Envoy Gateway, cert-manager, DNS, etc.
+
+**User-facing app `Application` CRDs** (which tell Argo CD to deploy team services) live in a separate repo: [`cluster-applications`](https://github.com/rayabueg/cluster-applications).
+This keeps infra changes and app changes on independent review/merge cycles.
+
 ## Notes: CRDs first
 
 Some addons (like Envoy Gateway) rely on CRDs. This repo vendors those CRDs under `clusters/k8s-lab/crds/` and applies them first using an Argo CD sync wave.
