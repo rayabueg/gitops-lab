@@ -17,13 +17,13 @@ For sharing, the simplest flow is:
 
 ## 2) Fork / clone
 
-If you’re starting from this workspace, `gitops-lab/` is already a git repo.
+If you’re starting from this workspace, `cluster-addons/` is already a git repo.
 
 To clone:
 
 ```bash
 git clone https://github.com/<you>/gitops-lab.git
-cd gitops-lab
+cd cluster-addons
 ```
 
 ## 3) Point Argo CD at your repo
@@ -95,8 +95,8 @@ git push -u origin <your-branch>
 If you’re working from the parent `k8s-lab` repo, this folder is a **git submodule**.
 The correct sequence is:
 
-1) Commit + push changes here (`gitops-lab/`) first
-2) Then, in the parent repo, commit the updated submodule pointer (the `gitops-lab` gitlink)
+1) Commit + push changes here (`cluster-addons/`) first
+2) Then, in the parent repo, commit the updated submodule pointer (the `cluster-addons` gitlink)
 
 This keeps the parent repo pinned to a known-good GitOps revision.
 
