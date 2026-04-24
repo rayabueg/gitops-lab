@@ -28,6 +28,7 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
+          - SkipDryRunOnMissingResource=true
         automated:
           prune: true
           selfHeal: true
