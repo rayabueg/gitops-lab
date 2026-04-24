@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-addons-k8s-lab
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/rayabueg/cluster-addons.git
+        revision: main
+        directories:
+          - path: clusters/k8s-lab/addons/*
+  template:
+    metadata:
+      name: '{{path.basename}}-k8s-lab'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/rayabueg/cluster-addons.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        # Default namespace — resources with explicit namespaces use their own.
+        # Application CRDs rendered by Helm addons have metadata.namespace: argocd.
+        namespace: argocd
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 15
+          backoff:
+            duration: 15s
+            factor: 2
+            maxDuration: 5m

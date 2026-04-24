@@ -2,16 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - applicationset.yaml
   - crds
   - namespaces.yaml
   - demo-configmap.yaml
-  - addons/cert-manager/application.yaml
   - cert-manager/clusterissuer-selfsigned.yaml
-  - addons/external-secrets/application.yaml
-  - addons/external-dns/application.yaml
-  - addons/core-dns/application.yaml
-  - addons/descheduler/application.yaml
-  - addons/envoy-gateway/application.yaml
   - gateway
 
 
