@@ -59,14 +59,9 @@ spec:
                   args:
                     ignorePvcPods: true
                     evictLocalStoragePods: true
-                    namespaceSelector:
-                      matchExpressions:
-                        - key: descheduler-ignore
-                          operator: DoesNotExist
-                        - key: kubernetes.io/metadata.name
-                          operator: NotIn
-                          values:
-                            - kube-system
+                    evictableNamespaces:
+                      exclude:
+                        - kube-system
                 - name: RemoveDuplicates
                 - name: RemovePodsHavingTooManyRestarts
                   args:
