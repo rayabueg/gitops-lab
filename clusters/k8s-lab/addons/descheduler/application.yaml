@@ -59,9 +59,6 @@ spec:
                   args:
                     ignorePvcPods: true
                     evictLocalStoragePods: true
-                    evictableNamespaces:
-                      exclude:
-                        - kube-system
                 - name: RemoveDuplicates
                 - name: RemovePodsHavingTooManyRestarts
                   args:
