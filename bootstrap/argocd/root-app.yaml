@@ -6,8 +6,6 @@ metadata:
 spec:
   project: default
   source:
-    # TODO: replace with your GitHub repo URL, e.g.
-    # https://github.com/<you>/k8s-lab-gitops.git
     repoURL: https://github.com/rayabueg/cluster-addons.git
     targetRevision: main
     path: clusters/k8s-lab
