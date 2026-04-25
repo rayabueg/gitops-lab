@@ -26,18 +26,27 @@ git clone https://github.com/<you>/gitops-lab.git
 cd cluster-addons
 ```
 
-## 3) Point Argo CD at your repo
+## 3) Bootstrap GitOps state
 
-Edit `bootstrap/argocd/root-app.yaml` and set `spec.source.repoURL` to your repo URL.
+This repo is the infra/addons half of the GitOps state. The user-facing apps half lives in [`cluster-applications`](https://github.com/rayabueg/cluster-applications).
 
-Then apply it to the cluster:
+Edit `bootstrap/argocd/root-app.yaml` and set `spec.source.repoURL` to your repo URL (if using a fork).
+
+Then apply **both** root apps from the `k8s-lab` repo root:
 
 ```bash
 export KUBECONFIG="$HOME/.kube/lima-k8s-lab"
 
-kubectl apply -f bootstrap/argocd/root-app.yaml
+# Cluster infra + addons (this repo)
+kubectl apply -f cluster-addons/bootstrap/argocd/root-app.yaml
+
+# User-facing apps
+kubectl apply -f cluster-applications/bootstrap/argocd/root-app.yaml
+
 kubectl -n argocd get applications
 ```
+
+Argo CD will reconcile both continuously. You only need to apply these once per cluster — after that, merging to `main` in either repo triggers an automatic sync.
 
 ## 4) Verify the first Git-managed resource
 
