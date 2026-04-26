@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mesh-demo
+  annotations:
+    # Sync before workloads so the namespace exists when Deployment/Service apply.
+    argocd.argoproj.io/sync-wave: "-1"
+  labels:
+    # Enrolls all pods in this namespace in Istio Ambient (sidecar-less mTLS).
+    # Safe to set before Istio is installed — ztunnel will pick it up once running.
+    istio.io/dataplane-mode: ambient

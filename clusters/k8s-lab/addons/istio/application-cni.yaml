@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-cni
+  namespace: argocd
+  annotations:
+    # Wave -2: after istiod is healthy, before ztunnel.
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  project: default
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: cni
+    targetRevision: 1.24.3
+    helm:
+      releaseName: istio-cni
+      values: |
+        # Ambient profile enables the ambient CNI plugin (no sidecar injection).
+        profile: ambient
+        # cni.exclusive=false allows Cilium to chain before Istio CNI.
+        # This is required for Cilium + Istio Ambient coexistence.
+        cni:
+          exclusive: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 15
+      backoff:
+        duration: 15s
+        factor: 2
+        maxDuration: 5m
