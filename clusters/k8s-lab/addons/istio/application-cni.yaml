@@ -40,9 +40,11 @@ spec:
   ignoreDifferences:
     # Istio's installer injects these labels onto the DaemonSet at install time;
     # they are not in the Helm chart and cause constant ArgoCD drift.
+    # namespace is required for namespaced resources with ServerSideApply.
     - group: apps
       kind: DaemonSet
       name: istio-cni-node
-      jsonPointers:
-        - /metadata/labels/install.operator.istio.io~1owning-resource
-        - /metadata/labels/operator.istio.io~1component
+      namespace: istio-system
+      jqPathExpressions:
+        - .metadata.labels."install.operator.istio.io/owning-resource"
+        - .metadata.labels."operator.istio.io/component"
