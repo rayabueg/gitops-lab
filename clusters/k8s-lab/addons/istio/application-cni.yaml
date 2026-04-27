@@ -30,7 +30,9 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      # Note: ServerSideApply is intentionally omitted — client-side apply is used
+      # because SSA's managedFields comparison bypasses ignoreDifferences, causing
+      # persistent OutOfSync for operator-injected labels on the DaemonSet.
     retry:
       limit: 15
       backoff:
@@ -40,11 +42,10 @@ spec:
   ignoreDifferences:
     # Istio's installer injects these labels onto the DaemonSet at install time;
     # they are not in the Helm chart and cause constant ArgoCD drift.
-    # namespace is required for namespaced resources with ServerSideApply.
     - group: apps
       kind: DaemonSet
       name: istio-cni-node
       namespace: istio-system
-      jqPathExpressions:
-        - .metadata.labels."install.operator.istio.io/owning-resource"
-        - .metadata.labels."operator.istio.io/component"
+      jsonPointers:
+        - /metadata/labels/install.operator.istio.io~1owning-resource
+        - /metadata/labels/operator.istio.io~1component
