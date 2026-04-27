@@ -26,7 +26,10 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      - Replace=true
+      # ServerSideApply handles pre-existing Helm hook resources (startupapicheck
+      # Role/RoleBinding) gracefully; Replace=true would fail with "already exists"
+      # if cert-manager was ever bootstrapped outside of ArgoCD.
+      - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
