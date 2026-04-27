@@ -31,3 +31,11 @@ spec:
         duration: 15s
         factor: 2
         maxDuration: 5m
+  ignoreDifferences:
+    # Istio dynamically sets failurePolicy: Ignore on startup to avoid blocking
+    # pod creation while initializing; reverts to Fail once stable.
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: istiod-default-validator
+      jsonPointers:
+        - /webhooks/0/failurePolicy
