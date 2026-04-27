@@ -31,7 +31,8 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      # Note: ServerSideApply is omitted so that ignoreDifferences for failurePolicy
+      # on ValidatingWebhookConfiguration works correctly (SSA bypasses ignoreDifferences).
     retry:
       limit: 15
       backoff:

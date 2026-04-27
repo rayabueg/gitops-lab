@@ -27,7 +27,8 @@ spec:
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
-          - ServerSideApply=true
+          # Note: ServerSideApply is omitted — client-side apply is used so that
+          # ignoreDifferences works correctly for resources with runtime-injected fields.
           - SkipDryRunOnMissingResource=true
         automated:
           prune: true
