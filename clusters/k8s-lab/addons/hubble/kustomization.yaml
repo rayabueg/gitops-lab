@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - application.yaml
-  # Note: hubble-ui uses <base href="/"> and cannot be served under a subpath via
-  # URL rewrite. Access it via: kubectl port-forward svc/hubble-ui -n kube-system 12000:80
-  # then open http://localhost:12000
+  - httproute.yaml
+  # hubble-ui is served via a dedicated Gateway listener on port 8080.
+  # HTTPRoute matches / on the 'hubble' listener — no URL rewrite needed.
+  # Port-forward: kubectl port-forward svc/envoy-envoy-gateway-system-eg-... -n envoy-gateway-system 12000:8080
