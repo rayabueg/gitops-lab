@@ -3,4 +3,6 @@ kind: Kustomization
 
 resources:
   - application.yaml
-  - httproute.yaml
+  # Note: hubble-ui uses <base href="/"> and cannot be served under a subpath via
+  # URL rewrite. Access it via: kubectl port-forward svc/hubble-ui -n kube-system 12000:80
+  # then open http://localhost:12000
