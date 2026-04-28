@@ -30,4 +30,12 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: argocd
+      protocol: TLS
+      port: 9090
+      tls:
+        mode: Passthrough
+      allowedRoutes:
+        namespaces:
+          from: All
 
