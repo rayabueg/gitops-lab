@@ -50,6 +50,7 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: eg
+      sectionName: http
   rules:
     - matches:
         - path:
