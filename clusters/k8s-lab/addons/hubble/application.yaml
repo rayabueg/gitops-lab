@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hubble
+  namespace: argocd
+  annotations:
+    # After istio and cilium CNI are running.
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+  source:
+    repoURL: https://helm.cilium.io
+    chart: cilium
+    targetRevision: 1.19.1
+    helm:
+      # Upgrade the existing 'cilium' Helm release in kube-system.
+      # All current values are preserved here to avoid unintended drift.
+      releaseName: cilium
+      values: |
+        # --- Existing values (must be kept to avoid drift) ---
+        cluster:
+          name: kubernetes
+        cni:
+          # Required for Istio Ambient coexistence (ztunnel manages its own netns).
+          exclusive: false
+        operator:
+          replicas: 1
+        routingMode: tunnel
+        tunnelProtocol: vxlan
+
+        # --- Hubble observability ---
+        hubble:
+          enabled: true
+          # Relay aggregates flows from all nodes into a single gRPC endpoint.
+          relay:
+            enabled: true
+          # Hubble UI: service map + flow explorer web interface.
+          ui:
+            enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - SkipDryRunOnMissingResource=true
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 15
+      backoff:
+        duration: 15s
+        factor: 2
+        maxDuration: 5m
+  ignoreDifferences:
+    # Cilium operator and daemonset inject runtime fields.
+    - group: apps
+      kind: DaemonSet
+      jsonPointers:
+        - /spec/template/metadata/annotations
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/template/metadata/annotations
