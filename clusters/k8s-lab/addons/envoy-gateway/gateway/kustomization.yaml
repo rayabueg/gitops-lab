@@ -7,8 +7,8 @@ commonAnnotations:
 resources:
   - eg-envoyproxy.yaml
   - eg-gateway.yaml
-  # ArgoCD TLS passthrough — routes port 9090 on the gateway to argocd-server:443
-  - argocd-tlsroute.yaml
+  # ArgoCD UI — routes port 9090 on the gateway to argocd-server:80 (HTTP insecure mode)
+  - argocd-httproute.yaml
   # Simpler CDN-based React demo (no build step) — served at /ui
   - demo-react-ui.yaml
   # Echo backend wired to the catch-all route /

@@ -1,0 +1,11 @@
+# Patch argocd-cmd-params-cm to enable insecure (HTTP) mode.
+# This allows the ArgoCD UI to be served over plain HTTP so it can be
+# routed through the Envoy Gateway HTTPRoute without TLS complications.
+# Access: kubectl port-forward envoy-svc 8080:9090 → http://localhost:8080
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+  namespace: argocd
+data:
+  server.insecure: "true"
