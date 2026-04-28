@@ -6,5 +6,5 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: Replace=true
 
 resources:
-  - gateway-api-standard-install.yaml
+  - gateway-api-experimental-install.yaml
   - envoy-gateway-crds.yaml
