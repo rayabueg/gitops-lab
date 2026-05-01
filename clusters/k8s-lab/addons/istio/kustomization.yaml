@@ -1,10 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# App-of-apps: each resource below is an ArgoCD Application.
-# Sync waves enforce install order: base (CRDs) → istiod → cni → ztunnel
 resources:
-  - application-base.yaml
-  - application-istiod.yaml
-  - application-cni.yaml
-  - application-ztunnel.yaml
+  - ../../../../waves/wave1/istio

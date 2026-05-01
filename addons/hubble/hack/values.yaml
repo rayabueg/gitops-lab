@@ -1,0 +1,18 @@
+cluster:
+  name: kubernetes
+cni:
+  exclusive: false
+operator:
+  replicas: 1
+routingMode: tunnel
+tunnelProtocol: vxlan
+
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+    service:
+      # Match the Envoy Gateway hubble listener port (12000) and localhost port-forward.
+      port: 12000
