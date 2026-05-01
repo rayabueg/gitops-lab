@@ -3,9 +3,5 @@ kind: Kustomization
 
 resources:
   - argocd-httproute.yaml
-  - demo-backend.yaml
-  - demo-hello.yaml
-  - demo-httproute.yaml
-  - demo-react-ui.yaml
   - eg-envoyproxy.yaml
   - eg-gateway.yaml
