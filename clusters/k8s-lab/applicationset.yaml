@@ -24,6 +24,28 @@ spec:
         # Default namespace — resources with explicit namespaces use their own.
         # Application CRDs rendered by Helm addons have metadata.namespace: argocd.
         namespace: argocd
+      ignoreDifferences:
+        # CRDs: Kubernetes mutates last-applied-configuration and status at runtime;
+        # these fields are not part of our desired state and cause spurious OutOfSync.
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          jsonPointers:
+            - /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration
+            - /status
+        # Webhooks: caBundle is injected at runtime by the cert controller (e.g. istiod,
+        # cert-manager cainjector). Ignore it so ArgoCD doesn't try to revert it.
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          jqPathExpressions:
+            - .webhooks[].clientConfig.caBundle
+          jsonPointers:
+            - /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          jqPathExpressions:
+            - .webhooks[].clientConfig.caBundle
+          jsonPointers:
+            - /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
