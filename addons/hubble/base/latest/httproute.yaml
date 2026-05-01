@@ -16,4 +16,4 @@ spec:
       backendRefs:
         - name: hubble-ui
           namespace: kube-system
-          port: 12000
+          port: 80

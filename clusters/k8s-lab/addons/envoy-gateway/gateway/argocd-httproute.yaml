@@ -16,4 +16,4 @@ spec:
       backendRefs:
         - name: argocd-server
           namespace: argocd
-          port: 9080
+          port: 80
