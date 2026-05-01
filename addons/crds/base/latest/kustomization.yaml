@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - envoy-gateway-crds.yaml
   - gateway-api-experimental-install.yaml
-  - gateway-api-standard-install.yaml
+  # gateway-api-standard-install.yaml omitted: all standard CRDs are included in experimental
