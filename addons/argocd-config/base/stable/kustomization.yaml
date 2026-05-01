@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - argocd-insecure.yaml
+  - argocd-httproute.yaml
