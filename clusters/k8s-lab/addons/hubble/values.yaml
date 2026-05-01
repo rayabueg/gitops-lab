@@ -13,6 +13,3 @@ hubble:
     enabled: true
   ui:
     enabled: true
-    service:
-      # Match the Envoy Gateway hubble listener port (12000) and localhost port-forward.
-      port: 12000
