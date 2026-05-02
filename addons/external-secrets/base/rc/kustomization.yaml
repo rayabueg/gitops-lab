@@ -15,9 +15,6 @@ patches:
       name: clustersecretstores.external-secrets.io
     patch: |
       - op: add
-        path: /metadata/annotations
-        value: {}
-      - op: add
         path: /metadata/annotations/argocd.argoproj.io~1sync-options
         value: Replace=true
   - target:
@@ -26,9 +23,6 @@ patches:
       kind: CustomResourceDefinition
       name: secretstores.external-secrets.io
     patch: |
-      - op: add
-        path: /metadata/annotations
-        value: {}
       - op: add
         path: /metadata/annotations/argocd.argoproj.io~1sync-options
         value: Replace=true
