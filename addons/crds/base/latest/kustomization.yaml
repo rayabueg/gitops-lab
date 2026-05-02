@@ -5,3 +5,31 @@ resources:
   - envoy-gateway-crds.yaml
   - gateway-api-experimental-install.yaml
   # gateway-api-standard-install.yaml omitted: all standard CRDs are included in experimental
+
+# envoyproxies and httproutes CRDs exceed the 262144-byte annotation limit for
+# client-side apply. Use Replace=true so ArgoCD uses kubectl replace instead.
+patches:
+  - target:
+      group: apiextensions.k8s.io
+      version: v1
+      kind: CustomResourceDefinition
+      name: envoyproxies.gateway.envoyproxy.io
+    patch: |
+      - op: add
+        path: /metadata/annotations
+        value: {}
+      - op: add
+        path: /metadata/annotations/argocd.argoproj.io~1sync-options
+        value: Replace=true
+  - target:
+      group: apiextensions.k8s.io
+      version: v1
+      kind: CustomResourceDefinition
+      name: httproutes.gateway.networking.k8s.io
+    patch: |
+      - op: add
+        path: /metadata/annotations
+        value: {}
+      - op: add
+        path: /metadata/annotations/argocd.argoproj.io~1sync-options
+        value: Replace=true
